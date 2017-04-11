@@ -20,10 +20,49 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Content Include="$(FirstTargetFrameworkDirectory)\**\*.*" TFM="$(TargetFramework)" />
+      <Content Include="$(FirstTargetFrameworkDirectory)\**\*.*" 
+               TargetFrameworkIdentifier="$(TargetFrameworkIdentifier)"
+               TargetFrameworkVersion="$(TargetFrameworkVersion)"/>
 
-      <Content Update="@(Content)" PackagePath="ref\%(TFM)\%(RecursiveDir)%(Filename)%(Extension)" />
+      <Content Update="@(Content)" PackagePath="build\%(TargetFrameworkIdentifier)\%(TargetFrameworkVersion)\%(RecursiveDir)%(Filename)%(Extension)" />
     </ItemGroup>
+  </Target>
+
+  <Target Name="AddTargetToContent"
+        BeforeTargets="_GetPackageFiles">
+    <PropertyGroup>
+      <PackageTargetsFileName>$(MSBuildProjectName).targets</PackageTargetsFileName>
+      <PackageTargetsFileContent>
+<![CDATA[
+<!--
+***********************************************************************************************
+$(PackageTargetsFileName)
+WARNING:  DO NOT MODIFY this file unless you are knowledgeable about MSBuild and have
+          created a backup copy.  Incorrect changes to this file will make it
+          impossible to load or build your projects from the command-line or the IDE.
+Copyright (c) .NET Foundation. All rights reserved.
+***********************************************************************************************
+-->
+<Project>
+  <PropertyGroup Condition=" ('%24(UseReferenceAssembliesFromPackage)' == 'true') And ('%24(TargetFrameworkIdentifier)' == '$(TargetFrameworkIdentifier)') And ('%24(TargetFrameworkVersion)' == '$(TargetFrameworkVersion)') ">
+    <TargetFrameworkRootPath>%24(MSBuildThisFileDirectory)</TargetFrameworkRootPath>
+  </PropertyGroup>
+</Project>
+]]>
+      </PackageTargetsFileContent>
+    </PropertyGroup>
+
+    <MakeDir Directories="$(IntermediateOutputPath)" />
+    <WriteLinesToFile File="$(IntermediateOutputPath)$(PackageTargetsFileName)" 
+                      Lines="$(PackageTargetsFileContent)"
+                      Overwrite="true"/>
+
+    <ItemGroup>
+      <Content Include="$(IntermediateOutputPath)$(PackageTargetsFileName)"
+               PackagePath="build\$(PackageTargetsFileName)"/>
+    </ItemGroup>
+                      
+
   </Target>
 
   <Import Sdk="Microsoft.NET.Sdk" Project="Sdk.targets" />

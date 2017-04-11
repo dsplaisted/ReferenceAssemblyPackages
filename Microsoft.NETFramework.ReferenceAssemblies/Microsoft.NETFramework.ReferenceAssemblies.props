@@ -7,7 +7,6 @@
   <PropertyGroup>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <IncludeBuildOutput>false</IncludeBuildOutput>
-    <OutputPath>$(OutputPath)Packages\</OutputPath>
   </PropertyGroup>
 
   <PropertyGroup>
