@@ -1,0 +1,34 @@
+<Project>
+
+  <Import Sdk="Microsoft.NET.Sdk" Project="Sdk.props" />
+  <Import Project="Microsoft.NETFramework.ReferenceAssemblies.props" />
+
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <IndexOfTargetFrameworkInProjectName>$([MSBuild]::Subtract( $(MSBuildProjectName.Split('.').Length) , 1))</IndexOfTargetFrameworkInProjectName>
+    <TargetFramework>$(MSBuildProjectName.Split('.')[$(IndexOfTargetFrameworkInProjectName)])</TargetFramework>
+  </PropertyGroup>
+
+  <Target Name="AddReferenceAssembliesToContent"
+        DependsOnTargets="GetReferenceAssemblyPaths"
+        BeforeTargets="_GetPackageFiles">
+    <PropertyGroup>
+      <FirstTargetFrameworkDirectory>$(TargetFrameworkDirectory.Split(';')[0])</FirstTargetFrameworkDirectory>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Content Include="$(FirstTargetFrameworkDirectory)\**\*.*" TFM="$(TargetFramework)" />
+
+      <Content Update="@(Content)" PackagePath="ref\%(TFM)\%(RecursiveDir)%(Filename)%(Extension)" />
+    </ItemGroup>
+  </Target>
+
+  <Import Sdk="Microsoft.NET.Sdk" Project="Sdk.targets" />
+  
+  <Target Name="Build" />
+  
+
+</Project>
