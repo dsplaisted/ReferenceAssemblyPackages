@@ -2,11 +2,11 @@
   <Import Project="Microsoft.NETFramework.ReferenceAssemblies.props" />
   
   <PropertyGroup>    
-    <TargetFrameworks>net40;net45;net451;net452;net46;net461;net462</TargetFrameworks>
+    <TargetFrameworks>net40;net45;net451;net452;net46;net461;net462;net47;net471</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="Microsoft.NETFramework.ReferenceAssemblies.$(TargetFramework).csproj"
-                      Condition=" '$(TargetFramework)' != '' "/>    
+                      Condition=" '$(TargetFramework)' != '' " PrivateAssets="Analyzers"/>    
   </ItemGroup>
 </Project>

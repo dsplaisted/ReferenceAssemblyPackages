@@ -17,6 +17,7 @@
     <PackageProjectUrl>https://dot.net/</PackageProjectUrl>
     <PackageIconUrl>http://go.microsoft.com/fwlink/?LinkID=288859</PackageIconUrl>
     <Copyright>© Microsoft Corporation.  All rights reserved.</Copyright>
+    <DevelopmentDependency>true</DevelopmentDependency>
   </PropertyGroup>
 
 </Project>
