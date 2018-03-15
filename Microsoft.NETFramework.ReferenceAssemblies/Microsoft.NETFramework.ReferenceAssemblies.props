@@ -18,6 +18,7 @@
     <PackageIconUrl>http://go.microsoft.com/fwlink/?LinkID=288859</PackageIconUrl>
     <Copyright>© Microsoft Corporation.  All rights reserved.</Copyright>
     <DevelopmentDependency>true</DevelopmentDependency>
+    <VersionSuffix>alpha-001</VersionSuffix>
   </PropertyGroup>
 
 </Project>
