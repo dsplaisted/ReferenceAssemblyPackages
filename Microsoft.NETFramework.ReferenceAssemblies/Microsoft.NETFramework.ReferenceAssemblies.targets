@@ -50,19 +50,17 @@ Copyright (c) .NET Foundation. All rights reserved.
 <Project>
   <PropertyGroup Condition=" ('%24(TargetFrameworkIdentifier)' == '$(TargetFrameworkIdentifier)') And ('%24(TargetFrameworkVersion)' == '$(TargetFrameworkVersion)') ">
     <TargetFrameworkRootPath>%24(MSBuildThisFileDirectory)</TargetFrameworkRootPath>
-    <_NeedToRemoveExplicitReference>true</_NeedToRemoveExplicitReference>
+    
+    <!-- FrameworkPathOverride is typically not set to the correct value, and the common targets include mscorlib from FrameworkPathOverride.
+         So disable FrameworkPathOverride, set NoStdLib to true, and explicitly reference mscorlib here. -->
+    <EnableFrameworkPathOverride>false</EnableFrameworkPathOverride>
+    <NoStdLib>true</NoStdLib>
   </PropertyGroup>
   
-  <!-- Work around issue where Microsoft.CSharp.CurrentVersion.targets adds an ExplicitReference to "%24(FrameworkPathOverride)\mscorlib.dll".
-      FrameworkPathOverride won't be set so this would cause problems -->
   <ItemGroup Condition=" ('%24(TargetFrameworkIdentifier)' == '$(TargetFrameworkIdentifier)') And ('%24(TargetFrameworkVersion)' == '$(TargetFrameworkVersion)') ">
     <Reference Include="mscorlib" />
   </ItemGroup>
-  <Target Name="RemoveExplicitReference" BeforeTargets="PrepareForBuild" Condition="'%24(_NeedToRemoveExplicitReference)' == 'true'">
-    <ItemGroup>
-      <_ExplicitReference Remove="%40(_ExplicitReference)" />
-    </ItemGroup>
-  </Target>
+
 </Project>
 ]]>
       </PackageTargetsFileContent>
