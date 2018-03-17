@@ -20,7 +20,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Content Include="$(FirstTargetFrameworkDirectory)\**\*.*" 
+      <Content Include="$(FirstTargetFrameworkDirectory)\**\*.dll;$(FirstTargetFrameworkDirectory)\**\*.xml" 
                TargetFrameworkIdentifier="$(TargetFrameworkIdentifier)"
                TargetFrameworkVersion="$(TargetFrameworkVersion)"/>
 
