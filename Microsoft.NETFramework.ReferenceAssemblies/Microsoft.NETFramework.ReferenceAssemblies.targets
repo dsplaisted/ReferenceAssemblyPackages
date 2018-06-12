@@ -58,7 +58,7 @@ Copyright (c) .NET Foundation. All rights reserved.
   </PropertyGroup>
   
   <ItemGroup Condition=" ('%24(TargetFrameworkIdentifier)' == '$(TargetFrameworkIdentifier)') And ('%24(TargetFrameworkVersion)' == '$(TargetFrameworkVersion)') ">
-    <Reference Include="mscorlib" />
+    <Reference Include="mscorlib" Pack="false" />
   </ItemGroup>
 
 </Project>
