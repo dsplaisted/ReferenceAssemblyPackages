@@ -29,6 +29,10 @@
       <!-- Normalize filename casing for System.Xml (older versions of targeting packs have it as System.XML) -->
       <Content Update="@(Content)" PackagePath="build\%(TargetFrameworkIdentifier)\%(TargetFrameworkVersion)\%(RecursiveDir)System.Xml%(Extension)" 
                Condition="'%(Filename)' == 'System.XML'"/>
+      
+      <!-- Likewise for System.Configuration (older versions have System.configuraiton) -->
+      <Content Update="@(Content)" PackagePath="build\%(TargetFrameworkIdentifier)\%(TargetFrameworkVersion)\%(RecursiveDir)System.Configuration%(Extension)" 
+               Condition="'%(Filename)' == 'System.configuration'"/>
     </ItemGroup>
   </Target>
 
